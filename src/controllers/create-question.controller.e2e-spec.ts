@@ -1,12 +1,14 @@
 import { AppModule } from '@/app.module'
 import { PrismaService } from '@/prisma/prisma.service'
 import { INestApplication } from '@nestjs/common'
+import { JwtService } from '@nestjs/jwt'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
 
-describe('Create account (E2E)', () => {
+describe('Create Quetsion (E2E)', () => {
   let app: INestApplication
   let prisma: PrismaService
+  let jwt: JwtService
 
   // esse before serve para subir a aplicação sem ser com start:dev e sim de forma programatica para não ter conflito
   // NÃO usa mais app.server no supertest: request(app.server)
@@ -19,25 +21,38 @@ describe('Create account (E2E)', () => {
     app = moduleRef.createNestApplication()
 
     prisma = moduleRef.get(PrismaService)
+    jwt = moduleRef.get(JwtService)
 
     await app.init()
   })
 
-  test('[POST] /accounts', async () => {
-    const response = await request(app.getHttpServer()).post('/accounts').send({
-      name: 'eduardo',
-      email: 'edu@gmail.com',
-      password: '123456',
-    })
-
-    expect(response.statusCode).toBe(201)
-
-    const userOnDatabase = await prisma.user.findUnique({
-      where: {
+  test('[POST] /questions', async () => {
+    const user = await prisma.user.create({
+      data: {
+        name: 'eduardo',
         email: 'edu@gmail.com',
+        password: '123456',
       },
     })
 
-    expect(userOnDatabase).toBeTruthy()
+    const accessToken = jwt.sign({ sub: user.id })
+
+    const response = await request(app.getHttpServer())
+      .post('/questions')
+      .set('Authorization', `Bearer ${accessToken}`)
+      .send({
+        title: 'New Question',
+        content: 'Question content',
+        // authorId ja esta sendo pego pelo token na função crete Question
+      })
+
+    expect(response.statusCode).toBe(201)
+
+    const questionOnDatabase = await prisma.question.findFirst({
+      where: {
+        slug: 'new-question',
+      },
+    })
+    expect(questionOnDatabase).toBeTruthy()
   })
 })
