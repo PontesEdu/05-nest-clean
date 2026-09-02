@@ -1,39 +1,60 @@
-# NestJS Clean Architecture
+# Forum API — NestJS & Clean Architecture
 
-Projeto desenvolvido durante meus estudos de **NestJS** e **Clean Architecture**, baseado no projeto de fórum apresentado pela Rocketseat.
+A forum API built with **NestJS** and **Clean Architecture**, exploring **DDD, Prisma, PostgreSQL, authentication, and automated testing**.
 
-O objetivo principal foi entender como estruturar uma aplicação backend utilizando princípios de **Clean Architecture**, separando regras de negócio, casos de uso e detalhes de infraestrutura.
+This project was developed as part of my studies with **Rocketseat**, with a focus on understanding how to structure backend applications using clean architecture principles and domain-driven design.
 
-> 📚 Projeto desenvolvido para fins de estudo e prática de arquitetura de software.
+> 📚 This is a study project focused on learning and practicing backend architecture and development.
 
 ---
 
-## 🚀 Sobre o projeto
+## 🚀 About
 
-A aplicação simula uma plataforma de fórum, permitindo trabalhar com conceitos como criação de perguntas e respostas, notificações e autenticação de usuários.
+The application simulates a forum platform where users can create questions, post answers, interact with content, and receive notifications.
 
-O foco do projeto não está apenas na implementação das funcionalidades, mas principalmente na organização e separação das responsabilidades dentro da aplicação.
+The main goal of the project is not only to implement the application features, but also to understand how to organize a backend application by separating **business rules from infrastructure and framework-specific implementations**.
 
-Durante o desenvolvimento, foram explorados conceitos como:
+---
+
+## 🧠 Concepts
+
+Throughout the project, I explored concepts such as:
 
 * Clean Architecture
 * Domain-Driven Design (DDD)
-* Inversão de dependência
-* Repository Pattern
 * Use Cases
-* Entidades e regras de domínio
-* Autenticação com JWT
-* Hash de senhas
-* Validação de dados
-* Testes unitários e E2E
+* Repository Pattern
+* Dependency Inversion
+* Domain Entities
+* Domain Events
+* Authentication and authorization
+* Automated testing
+* Separation of concerns
 
 ---
 
-## 🧠 Conceitos estudados
+## 🛠️ Tech Stack
 
-### Clean Architecture
+* **Node.js**
+* **TypeScript**
+* **NestJS**
+* **Prisma**
+* **PostgreSQL**
+* **Docker**
+* **JWT**
+* **Passport**
+* **bcrypt**
+* **Zod**
+* **Vitest**
+* **Supertest**
+* **ESLint**
+* **Prettier**
 
-A aplicação organiza o código em diferentes camadas, buscando manter as regras de negócio independentes de frameworks e detalhes externos.
+---
+
+## 🏗️ Architecture
+
+The project follows a Clean Architecture approach, separating the application into different layers.
 
 ```text
 src/
@@ -55,125 +76,127 @@ src/
     └── http/
 ```
 
-A estrutura separa principalmente:
+### Core
 
-* **Core:** conceitos fundamentais e regras compartilhadas da aplicação.
-* **Domain:** regras e casos de uso específicos do negócio.
-* **Infrastructure:** implementação de banco de dados, autenticação, criptografia e HTTP.
+Contains concepts shared across the application, such as entities, errors, events, repository contracts, and common types.
 
----
+### Domain
 
-## 🛠️ Tecnologias
+Contains the application's business rules and use cases.
 
-* **Node.js**
-* **TypeScript**
-* **NestJS**
-* **Prisma**
-* **PostgreSQL**
-* **Docker / Docker Compose**
-* **JWT**
-* **Passport**
-* **bcrypt**
-* **Zod**
-* **Vitest**
-* **Supertest**
-* **ESLint**
-* **Prettier**
+The domain is divided into features such as:
 
----
+* Forum
+* Notifications
 
-## 📌 Funcionalidades
+### Infrastructure
 
-### Fórum
+Contains implementations related to external technologies and frameworks, including:
 
-* Criação de perguntas
-* Listagem de perguntas
-* Busca de perguntas
-* Criação de respostas
-* Listagem de respostas
-* Comentários e interações relacionadas ao fórum
+* HTTP
+* Database
+* Authentication
+* Cryptography
+* Prisma
 
-### Autenticação
-
-* Cadastro de usuários
-* Login
-* Autenticação utilizando JWT
-* Proteção de rotas
-* Hash de senhas utilizando bcrypt
-
-### Notificações
-
-* Criação de notificações
-* Listagem de notificações
-* Marcação de notificações como lidas
-* Marcação de notificações como não lidas
+This separation helps keep the business logic independent from infrastructure details.
 
 ---
 
-## 🧪 Testes
+## 📌 Features
 
-O projeto utiliza **Vitest** para testes automatizados.
+### Forum
 
-Para executar os testes:
+* Create questions
+* List questions
+* Search questions
+* Create answers
+* List answers
+* Interact with forum content
+
+### Authentication
+
+* User registration
+* User authentication
+* JWT-based authentication
+* Protected routes
+* Password hashing with bcrypt
+
+### Notifications
+
+* Create notifications
+* List notifications
+* Read notifications
+* Mark notifications as unread
+
+---
+
+## 🧪 Testing
+
+The project uses **Vitest** for automated testing.
+
+Run the unit tests:
 
 ```bash
 npm run test
 ```
 
-Para executar os testes em modo de desenvolvimento:
+Run tests in watch mode:
 
 ```bash
 npm run test:watch
 ```
 
-Para gerar o relatório de cobertura:
+Generate test coverage:
 
 ```bash
 npm run test:cov
 ```
 
-Os testes E2E podem ser executados com:
+Run end-to-end tests:
 
 ```bash
 npm run test:e2e
 ```
 
+Automated tests are used to validate the application's business rules and HTTP behavior.
+
 ---
 
-## ⚙️ Como executar
+## ⚙️ Getting Started
 
-### Pré-requisitos
+### Prerequisites
 
-Antes de começar, você precisa ter instalado:
+Make sure you have the following installed:
 
 * Node.js
 * npm
 * Docker
 * Docker Compose
 
-### 1. Clone o repositório
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/PontesEdu/05-nest-clean.git
 ```
 
-Entre na pasta:
+Navigate to the project:
 
 ```bash
 cd 05-nest-clean
 ```
 
-### 2. Instale as dependências
+### 2. Install dependencies
 
 ```bash
 npm install
 ```
 
-### 3. Configure as variáveis de ambiente
+### 3. Configure environment variables
 
-Crie um arquivo `.env` na raiz do projeto com as variáveis necessárias para a aplicação.
+Create a `.env` file in the project root with the required environment variables.
 
-Exemplo:
+Example:
 
 ```env
 DATABASE_URL="postgresql://docker:docker@localhost:5432/clean"
@@ -181,37 +204,33 @@ JWT_PRIVATE_KEY="your-private-key"
 JWT_PUBLIC_KEY="your-public-key"
 ```
 
-> As variáveis podem variar de acordo com a configuração atual do projeto.
+> The required environment variables may vary depending on the current project configuration.
 
-### 4. Inicie o banco de dados
+### 4. Start the database
 
 ```bash
 docker compose up -d
 ```
 
-### 5. Execute as migrations
+### 5. Run database migrations
 
 ```bash
 npx prisma migrate dev
 ```
 
-### 6. Inicie a aplicação
-
-Em ambiente de desenvolvimento:
+### 6. Start the application
 
 ```bash
 npm run start:dev
 ```
 
-A API estará disponível localmente após a inicialização do NestJS.
-
 ---
 
-## 🗄️ Banco de dados
+## 🗄️ Database
 
-O projeto utiliza **PostgreSQL** como banco de dados e **Prisma ORM** para comunicação com a aplicação.
+The project uses **PostgreSQL** as its relational database and **Prisma** as the ORM.
 
-As migrations ficam armazenadas dentro da pasta:
+The Prisma schema and database migrations are located in:
 
 ```text
 prisma/
@@ -221,7 +240,7 @@ prisma/
 
 ---
 
-## 📁 Organização do projeto
+## 📂 Project Structure
 
 ```text
 src/
@@ -251,44 +270,46 @@ src/
     └── main.ts
 ```
 
-Essa organização ajuda a manter as regras de negócio desacopladas das implementações externas, facilitando testes, manutenção e evolução da aplicação.
+The structure is designed to keep **domain rules isolated from external dependencies**, making the application easier to test, maintain, and evolve.
 
 ---
 
-## 📖 Objetivos de aprendizado
+## 🎯 Learning Goals
 
-Este projeto faz parte da minha jornada de estudos em desenvolvimento backend com Node.js e NestJS.
+This project is part of my backend development studies and was created to strengthen my understanding of:
 
-Os principais objetivos foram:
-
-* Aprender NestJS na prática
-* Entender Clean Architecture
-* Aplicar princípios de DDD
-* Trabalhar com casos de uso
-* Utilizar interfaces e inversão de dependência
-* Implementar autenticação com JWT
-* Trabalhar com PostgreSQL e Prisma
-* Criar testes unitários e E2E
-* Melhorar a organização e manutenção de aplicações backend
-
----
-
-## 📚 Referência
-
-Projeto desenvolvido como parte dos estudos da formação da **Rocketseat**, utilizando como referência o projeto de fórum apresentado durante o curso.
+* Building APIs with NestJS
+* Clean Architecture
+* Domain-Driven Design
+* SOLID principles
+* Dependency Inversion
+* Repository Pattern
+* Use Case-based application design
+* Authentication with JWT
+* PostgreSQL and Prisma
+* Unit and E2E testing
+* Backend project organization
 
 ---
 
-## 👨‍💻 Autor
+## 📚 Reference
+
+This project was developed as part of my studies with **Rocketseat**, based on the forum API project presented in their training.
+
+The implementation was used as an opportunity to practice and better understand backend architecture concepts rather than simply focusing on feature development.
+
+---
+
+## 👨‍💻 Author
 
 **Eduardo Pontes**
 
-Desenvolvedor em formação, com foco em desenvolvimento **Full Stack** e interesse especial em backend, arquitetura de software e construção de aplicações escaláveis.
+Full Stack Developer in training, focused on backend development, software architecture, and building well-structured applications.
 
 * GitHub: [PontesEdu](https://github.com/PontesEdu)
 
 ---
 
-## 📄 Licença
+## 📄 License
 
-Este projeto foi desenvolvido para fins de estudo e aprendizado.
+This project was developed for educational purposes as part of my studies.
